@@ -1,10 +1,6 @@
-import { error } from 'console';
-import { response } from 'express';
-
 import app from '../index';
 import { convertWidthAndHeight, processImage } from '../routes/imageRouter';
 import superTest from 'supertest';
-import path from 'path';
 
 const request = superTest(app);
 
@@ -34,6 +30,7 @@ describe('Image Processing Function Tests', () => {
       await processImage('fjord', testWidth, testHeight);
     } catch (error) {
       errorOccurred = true;
+      console.log(error);
     }
 
     expect(errorOccurred).toBe(false);

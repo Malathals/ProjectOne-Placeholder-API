@@ -10,6 +10,11 @@ export const processImage = async (
   width: string,
   height: string,
 ): Promise<Buffer> => {
+  if (!/^[a-zA-Z]+$/.test(imgName)) {
+    throw new Error(
+      'Invalid filename. Filename should only contain letters without any numbers.',
+    );
+  }
   const imagePath = path.join(__dirname, '../img', `${imgName}.jpg`);
 
   if (!fs.existsSync(imagePath)) {
@@ -19,14 +24,25 @@ export const processImage = async (
   let img = sharp(imagePath);
 
   if (width && height) {
+    if (isNaN(parseInt(width)) || parseInt(width) <= 0 || width.match(/\D/)) {
+      throw new Error(
+        'Invalid width. Width must be a positive integer with only numeric values.',
+      );
+    }
+    if (
+      isNaN(parseInt(height)) ||
+      parseInt(height) <= 0 ||
+      height.match(/\D/)
+    ) {
+      throw new Error(
+        'Invalid height. Height must be a positive integer with only numeric values.',
+      );
+    }
+
     const intWidth = convertWidthAndHeight(width);
     const intHeight = convertWidthAndHeight(height);
 
-    if (!isNaN(intWidth) && !isNaN(intHeight)) {
-      img = img.resize(intWidth, intHeight);
-    } else {
-      throw new Error('Invalid width or height');
-    }
+    img = img.resize(intWidth, intHeight);
   }
 
   return await img.toBuffer();
