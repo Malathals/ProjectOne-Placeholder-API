@@ -4,26 +4,38 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npm run lint && npm run format && npx tsc",
     "jasmine": "ts-node node_modules/jasmine/bin/jasmine.js",
-    "test": "npm run build && npm run jasmine"
+    "test": "npm run build && npm run jasmine",
+    "format": "prettier --write '*.ts'",
+    "lint": "eslint '*.ts' --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
-    "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^3.1.4",
     "path": "^0.12.7",
-    "sharp": "^0.33.5",
-    "supertest": "^7.0.0"
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/jasmine": "^5.1.4",
     "@types/node": "^22.5.2",
+    "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-promise": "^7.1.0",
     "jasmine": "^5.2.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "prettier": "^3.3.3",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }
